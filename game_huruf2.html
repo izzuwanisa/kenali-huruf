@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kenali Huruf v2.0</title>
+<style>
+*{box-sizing:border-box}
+body{
+margin:0;font-family:Arial,sans-serif;
+background:linear-gradient(135deg,#6dd5fa,#8e54e9);
+display:flex;justify-content:center;align-items:center;
+min-height:100vh;padding:20px;
+}
+.card{
+background:#fff;width:100%;max-width:480px;
+border-radius:24px;padding:24px;text-align:center;
+box-shadow:0 12px 30px rgba(0,0,0,.2);
+animation:pop .4s;
+}
+@keyframes pop{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
+h1{margin:0;color:#333}
+#progress,#score{margin:8px;font-weight:bold;color:#555}
+#letter{font-size:90px;color:#ff5722;margin:20px;font-weight:bold}
+.answers{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+button{
+padding:16px;border:none;border-radius:16px;font-size:22px;
+background:#4cafef;color:#fff;cursor:pointer;transition:.2s}
+button:hover{transform:scale(1.05)}
+.correct{background:#4CAF50!important}
+.wrong{background:#F44336!important}
+#nextBtn,#restartBtn{
+margin-top:18px;display:none;background:#673ab7}
+#msg{font-size:22px;height:30px;font-weight:bold}
+.shake{animation:shake .3s}
+@keyframes shake{
+0%,100%{transform:translateX(0)}
+25%{transform:translateX(-8px)}
+75%{transform:translateX(8px)}
+}
+#confetti{font-size:38px;height:42px}
+</style>
+</head>
+<body>
+<div class="card">
+<h1>🌈 Kenali Huruf</h1>
+<div id="progress"></div>
+<div id="score"></div>
+<div id="confetti"></div>
+<div id="letter"></div>
+<div id="msg"></div>
+<div class="answers" id="answers"></div>
+<button id="nextBtn">➡️ Seterusnya</button>
+<button id="restartBtn">🔄 Main Semula</button>
+</div>
+<script>
+const all="ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+let letters=[],current="",score=0,index=0;
+
+const letter=document.getElementById("letter");
+const answers=document.getElementById("answers");
+const scoreTxt=document.getElementById("score");
+const progress=document.getElementById("progress");
+const msg=document.getElementById("msg");
+const nextBtn=document.getElementById("nextBtn");
+const restartBtn=document.getElementById("restartBtn");
+const confetti=document.getElementById("confetti");
+
+function beep(f){
+const a=new(window.AudioContext||webkitAudioContext)();
+const o=a.createOscillator(),g=a.createGain();
+o.connect(g);g.connect(a.destination);
+o.frequency.value=f;o.start();
+g.gain.exponentialRampToValueAtTime(.0001,a.currentTime+.25);
+o.stop(a.currentTime+.25);
+}
+
+function shuffle(arr){
+for(let i=arr.length-1;i>0;i--){
+let j=Math.floor(Math.random()*(i+1));
+[arr[i],arr[j]]=[arr[j],arr[i]];
+}
+return arr;
+}
+
+function start(){
+letters=shuffle([...all]).slice(0,10);
+score=0;index=0;
+restartBtn.style.display="none";
+nextQuestion();
+}
+
+function nextQuestion(){
+if(index>=10){finish();return;}
+current=letters[index];
+progress.textContent="Soalan "+(index+1)+" / 10";
+scoreTxt.textContent="⭐ Skor : "+score;
+msg.textContent="";
+confetti.textContent="";
+nextBtn.style.display="none";
+answers.innerHTML="";
+letter.textContent=current;
+
+let opts=[current];
+while(opts.length<4){
+let r=all[Math.floor(Math.random()*26)];
+if(!opts.includes(r))opts.push(r);
+}
+shuffle(opts);
+
+opts.forEach(x=>{
+let b=document.createElement("button");
+b.textContent=x;
+b.onclick=()=>{
+if(x===current){
+b.classList.add("correct");
+beep(700);
+score++;
+msg.textContent="🎉 Betul!";
+confetti.textContent="🎊🎉✨";
+document.querySelectorAll(".answers button").forEach(z=>z.disabled=true);
+nextBtn.style.display="inline-block";
+}else{
+b.classList.add("wrong");
+beep(220);
+msg.textContent="❌ Cuba Lagi";
+document.querySelector(".card").classList.add("shake");
+setTimeout(()=>document.querySelector(".card").classList.remove("shake"),300);
+b.disabled=true;
+}
+}
+answers.appendChild(b);
+});
+}
+
+nextBtn.onclick=()=>{index++;nextQuestion();}
+
+function finish(){
+letter.textContent="🏆";
+answers.innerHTML="";
+msg.innerHTML="<b>Tahniah!<br>Markah: "+score+" / 10</b>";
+progress.textContent="Permainan Tamat";
+scoreTxt.textContent="";
+confetti.textContent="🎉🎉🎉";
+nextBtn.style.display="none";
+restartBtn.style.display="inline-block";
+}
+
+restartBtn.onclick=start;
+start();
+</script>
+</body>
+</html>
