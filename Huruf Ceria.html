@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Huruf Ceria</title>
+<style>
+:root{--bg:#fff6e0;--ink:#2b2250;--card:#ffffff;--sky:#4cc3f5;--sun:#ffc83d;--pink:#ff6fa5;--mint:#3ed6a0;--grape:#8b6cf0;--shadow:#2b2250;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root:not([data-theme="light"]){}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1f1a3d;--ink:#fff4d6;--card:#2e2760;--shadow:#000}}
+:root[data-theme="dark"]{--bg:#1f1a3d;--ink:#fff4d6;--card:#2e2760;--shadow:#000}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;min-height:100%}
+body{background:var(--bg);color:var(--ink);font-family:"Baloo 2","Fredoka","Comic Sans MS","Trebuchet MS",system-ui,sans-serif;font-weight:700;
+background-image:radial-gradient(circle at 10% 10%,#ffc83d33 0 80px,transparent 81px),radial-gradient(circle at 92% 30%,#ff6fa533 0 110px,transparent 111px),radial-gradient(circle at 20% 95%,#4cc3f533 0 120px,transparent 121px)}
+.wrap{max-width:760px;margin:0 auto;padding:14px 14px 40px}
+h1{margin:6px 0 2px;font-size:clamp(30px,8vw,48px);text-align:center;letter-spacing:.5px}
+h1 span:nth-child(1){color:var(--pink)}h1 span:nth-child(2){color:var(--sky)}h1 span:nth-child(3){color:var(--mint)}h1 span:nth-child(4){color:var(--grape)}
+.sub{text-align:center;margin:0 0 14px;opacity:.8}
+.tabs{display:flex;gap:10px;justify-content:center;margin-bottom:16px}
+button{font:inherit;color:inherit;cursor:pointer}
+.tab{padding:12px 22px;border-radius:999px;border:3px solid var(--shadow);background:var(--card);font-size:18px;box-shadow:0 4px 0 var(--shadow)}
+.tab[aria-selected=true]{background:var(--sun);color:#2b2250}
+button:focus-visible{outline:4px solid var(--grape);outline-offset:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:12px}
+.tile{aspect-ratio:1;border-radius:46% 54% 50% 50%/55% 45% 55% 45%;border:3px solid var(--shadow);font-size:30px;box-shadow:0 5px 0 var(--shadow);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;transition:transform .12s}
+.tile small{font-size:22px;margin-top:2px}
+.tile:active{transform:translateY(4px);box-shadow:0 1px 0 var(--shadow)}
+.big{position:fixed;inset:0;background:#2b2250cc;display:flex;align-items:center;justify-content:center;padding:16px;z-index:5}
+.big[hidden]{display:none}
+.panel{background:var(--card);border:4px solid var(--shadow);border-radius:36px;padding:22px;width:min(420px,100%);text-align:center;box-shadow:0 8px 0 var(--shadow);animation:pop .25s}
+@keyframes pop{from{transform:scale(.7)}to{transform:scale(1)}}
+.bigl{font-size:clamp(90px,28vw,150px);line-height:1;margin:0;color:var(--grape)}
+.emoji{font-size:84px;line-height:1.1;display:inline-block}
+.emoji.bounce{animation:bn .6s}
+@keyframes bn{30%{transform:translateY(-22px) rotate(-8deg)}60%{transform:translateY(0) rotate(6deg)}}
+.word{font-size:34px;margin:4px 0 14px}
+.word b{color:var(--pink)}
+.row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.btn{padding:12px 20px;border-radius:999px;border:3px solid var(--shadow);font-size:20px;box-shadow:0 4px 0 var(--shadow);background:var(--sky);color:#2b2250}
+.btn.alt{background:var(--card);color:var(--ink)}
+.btn.go{background:var(--mint)}
+.bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:20px}
+.pill{background:var(--card);border:3px solid var(--shadow);border-radius:999px;padding:6px 16px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:10px 60px;max-width:420px;margin:0 auto}
+.cloud,.note{height:78px;border:3px solid var(--shadow);font-size:44px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 0 var(--shadow);transition:transform .12s}
+.cloud{border-radius:44% 56% 46% 54%/60% 50% 50% 40%;background:var(--card)}
+.note{border-radius:10px 10px 18px 18px;background:#fffdf2;color:#2b2250}
+.cloud.sel{background:var(--sun);color:#2b2250;transform:scale(1.08)}
+.cloud.ok,.note.ok{background:var(--mint);color:#2b2250;pointer-events:none}
+.note.bad,.cloud.bad{animation:shake .35s;background:#ff8a8a;color:#2b2250}
+@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.result{text-align:center;padding:10px}
+.stars{font-size:48px;letter-spacing:6px}
+.score{font-size:64px;margin:0;color:var(--pink)}
+.level{font-size:28px;margin:6px 0 16px}
+.scale{display:inline-block;text-align:left;font-size:16px;opacity:.85;margin-bottom:14px}
+.conf{position:fixed;top:-20px;font-size:28px;pointer-events:none;animation:fall 2.2s linear forwards;z-index:9}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1><span>Huruf</span> <span>Ce</span><span>ri</span><span>a</span></h1>
+  <p class="sub">Tekan, dengar dan padankan huruf!</p>
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" id="t1" aria-selected="true">Belajar</button>
+    <button class="tab" role="tab" id="t2" aria-selected="false">Padankan</button>
+  </div>
+  <main id="main"></main>
+</div>
+<div class="big" id="big" hidden></div>
+<script>
+const W=[["A","Ayam","🐔"],["B","Buku","📖"],["C","Cawan","☕"],["D","Dadu","🎲"],["E","Epal","🍎"],["F","Foto","📷"],["G","Gajah","🐘"],["H","Hati","❤️"],["I","Itik","🦆"],["J","Jam","⏰"],["K","Kucing","🐱"],["L","Lori","🚛"],["M","Meja","🪑"],["N","Nasi","🍚"],["O","Ombak","🌊"],["P","Pen","🖊️"],["Q","Qari","🕌"],["R","Roti","🍞"],["S","Susu","🥛"],["T","Topi","🧢"],["U","Ulat","🐛"],["V","Vas","🏺"],["W","Watak","🎭"],["X","Xilofon","🎹"],["Y","Yoyo","🪀"],["Z","Zip","🧥"]];
+const COL=["#ff9ec4","#7fd8ff","#ffe27a","#8ff0c8","#c4b0ff","#ffb48a"];
+const NAMES={A:"a",B:"be",C:"ce",D:"de",E:"e",F:"ef",G:"ge",H:"ha",I:"i",J:"je",K:"ka",L:"el",M:"em",N:"en",O:"o",P:"pe",Q:"ki",R:"er",S:"es",T:"te",U:"u",V:"ve",W:"we",X:"eks",Y:"ye",Z:"zed"};
+const $=s=>document.querySelector(s), main=$("#main"), big=$("#big");
+let voice=null;
+function pickVoice(){try{const v=speechSynthesis.getVoices();voice=v.find(x=>/^ms|^id/i.test(x.lang))||null}catch(e){}}
+try{pickVoice();speechSynthesis.onvoiceschanged=pickVoice}catch(e){}
+function say(t,rate){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang=voice?voice.lang:"ms-MY";if(voice)u.voice=voice;u.rate=rate||.8;u.pitch=1.2;speechSynthesis.speak(u)}catch(e){}}
+let ac;
+function tone(f,d,type,t0){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();const o=ac.createOscillator(),g=ac.createGain();o.type=type||"sine";o.frequency.value=f;const s=ac.currentTime+(t0||0);g.gain.setValueAtTime(.2,s);g.gain.exponentialRampToValueAtTime(.001,s+d);o.connect(g);g.connect(ac.destination);o.start(s);o.stop(s+d)}catch(e){}}
+const good=()=>{tone(660,.15,"triangle");tone(880,.2,"triangle",.12)};
+const bad=()=>tone(180,.3,"sawtooth");
+const win=()=>[523,659,784,1047].forEach((f,i)=>tone(f,.25,"triangle",i*.14));
+function confetti(){const e=["⭐","🎉","🌟","🎈","🍎"];for(let i=0;i<24;i++){const c=document.createElement("div");c.className="conf";c.textContent=e[i%5];c.style.left=Math.random()*100+"vw";c.style.animationDelay=Math.random()*.8+"s";document.body.appendChild(c);setTimeout(()=>c.remove(),3200)}}
+
+function tabs(n){$("#t1").setAttribute("aria-selected",n==1);$("#t2").setAttribute("aria-selected",n==2)}
+$("#t1").onclick=()=>{tabs(1);learn()};$("#t2").onclick=()=>{tabs(2);startGame()};
+
+function learn(){
+  main.innerHTML='<div class="grid">'+W.map((w,i)=>`<button class="tile" data-i="${i}" style="background:${COL[i%6]};color:#2b2250" aria-label="Huruf ${w[0]}">${w[0]}<small>${w[2]}</small></button>`).join("")+"</div>";
+  main.querySelectorAll(".tile").forEach(b=>b.onclick=()=>openCard(+b.dataset.i));
+}
+function openCard(i){
+  const [L,wd,em]=W[i];
+  big.hidden=false;
+  big.innerHTML=`<div class="panel"><p class="bigl">${L}${L.toLowerCase()}</p><div class="emoji" id="em">${em}</div><p class="word"><b>${wd[0]}</b>${wd.slice(1)}</p>
+  <div class="row"><button class="btn" id="hear">🔊 Dengar</button><button class="btn alt" id="prev">◀</button><button class="btn alt" id="next">▶</button><button class="btn go" id="close">Tutup</button></div></div>`;
+  const play=()=>{say(`${NAMES[L]}. ${L==="X"?"Xilofon":wd}`);const e=$("#em");e.classList.remove("bounce");void e.offsetWidth;e.classList.add("bounce")};
+  $("#hear").onclick=play;$("#close").onclick=()=>{big.hidden=true;speechSynthesis.cancel()};
+  $("#prev").onclick=()=>openCard((i+25)%26);$("#next").onclick=()=>openCard((i+1)%26);
+  good();play();
+}
+
+let G;
+function startGame(){
+  const idx=[...Array(26).keys()];
+  const chunks=[idx.slice(0,5),idx.slice(5,10),idx.slice(10,15),idx.slice(15,20),idx.slice(20,26)];
+  G={chunks,r:0,score:0,done:0,sel:null,fails:{}};
+  round();
+}
+const shuf=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+function round(){
+  const ids=G.chunks[G.r];G.left=ids.length;G.sel=null;
+  main.innerHTML=`<div class="bar"><span class="pill">Bahagian ${G.r+1}/5</span><span class="pill">⭐ ${G.score}/26</span></div>
+  <p style="text-align:center;margin:0 0 12px">Padankan dengan pasangan huruf yang betul.</p>
+  <div class="cols"><div id="L">${ids.map(i=>`<button class="cloud" data-i="${i}" style="width:100%;margin-bottom:10px">${W[i][0]}</button>`).join("")}</div>
+  <div id="R">${shuf(ids).map(i=>`<button class="note" data-i="${i}" style="width:100%;margin-bottom:10px">${W[i][0].toLowerCase()}</button>`).join("")}</div></div>`;
+  main.querySelectorAll(".cloud").forEach(c=>c.onclick=()=>{
+    main.querySelectorAll(".cloud").forEach(x=>x.classList.remove("sel"));
+    c.classList.add("sel");G.sel=c;say(NAMES[W[c.dataset.i][0]],.9)});
+  main.querySelectorAll(".note").forEach(n=>n.onclick=()=>{
+    if(!G.sel){n.classList.add("bad");setTimeout(()=>n.classList.remove("bad"),400);return}
+    const k=G.sel.dataset.i;
+    if(k===n.dataset.i){
+      good();G.sel.classList.remove("sel");G.sel.classList.add("ok");n.classList.add("ok");
+      if(!G.fails[k])G.score++;G.sel=null;G.left--;
+      $(".bar .pill:last-child").textContent="⭐ "+G.score+"/26";
+      say(W[k][0].toLowerCase());
+      if(!G.left)setTimeout(()=>{G.r++;G.r<5?round():result()},900);
+    }else{
+      bad();G.fails[k]=1;n.classList.add("bad");G.sel.classList.add("bad");
+      const s=G.sel;setTimeout(()=>{n.classList.remove("bad");s.classList.remove("bad")},400);
+    }
+  });
+}
+function result(){
+  const s=G.score,lv=s>=22?["Telah Menguasai","🏆"]:s>=14?["Sedang Maju","🌱"]:["Belum Menguasai","💪"];
+  main.innerHTML=`<div class="result"><div class="stars">${s>=22?"⭐⭐⭐":s>=14?"⭐⭐":"⭐"}</div><p class="score">${s}/26</p><p class="level">${lv[1]} ${lv[0]}</p>
+  <div class="scale">Penilaian:<br>Telah Menguasai: 22-26<br>Sedang Maju: 14-21<br>Belum Menguasai: 0-13</div>
+  <div class="row"><button class="btn go" id="again">Main lagi</button><button class="btn alt" id="lrn">Belajar huruf</button></div></div>`;
+  win();if(s>=14)confetti();say(s>=22?"Syabas! Anda telah menguasai!":s>=14?"Bagus! Teruskan usaha!":"Jangan putus asa. Cuba lagi!");
+  $("#again").onclick=startGame;$("#lrn").onclick=()=>{tabs(1);learn()};
+}
+big.onclick=e=>{if(e.target===big){big.hidden=true;try{speechSynthesis.cancel()}catch(x){}}};
+learn();
+</script>
+</body>
+</html>
