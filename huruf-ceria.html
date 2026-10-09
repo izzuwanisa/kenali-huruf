@@ -5,17 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Huruf Ceria</title>
 <style>
-:root{--bg:#fff6e0;--ink:#2b2250;--card:#ffffff;--sky:#4cc3f5;--sun:#ffc83d;--pink:#ff6fa5;--mint:#3ed6a0;--grape:#8b6cf0;--shadow:#2b2250;
+:root{--bg:#fff6e0;--ink:#2b2250;--card:#ffffff;--sky:#4cc3f5;--sun:#ffc83d;--pink:#ff6fa5;--mint:#3ed6a0;--grape:#8b6cf0;--shadow:#2b2250;--s1:#8fdcff;--s2:#e6f8ff;--s3:#fff3d1;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 :root:not([data-theme="light"]){}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1f1a3d;--ink:#fff4d6;--card:#2e2760;--shadow:#000}}
-:root[data-theme="dark"]{--bg:#1f1a3d;--ink:#fff4d6;--card:#2e2760;--shadow:#000}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1f1a3d;--ink:#fff4d6;--card:#2e2760;--shadow:#000;--s1:#1b1646;--s2:#2d2a7a;--s3:#4a3a8c}}
+:root[data-theme="dark"]{--bg:#1f1a3d;--ink:#fff4d6;--card:#2e2760;--shadow:#000;--s1:#1b1646;--s2:#2d2a7a;--s3:#4a3a8c}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;min-height:100%}
 body{background:var(--bg);color:var(--ink);font-family:"Baloo 2","Fredoka","Comic Sans MS","Trebuchet MS",system-ui,sans-serif;font-weight:700;
-background-image:radial-gradient(circle at 10% 10%,#ffc83d33 0 80px,transparent 81px),radial-gradient(circle at 92% 30%,#ff6fa533 0 110px,transparent 111px),radial-gradient(circle at 20% 95%,#4cc3f533 0 120px,transparent 121px)}
-.wrap{max-width:760px;margin:0 auto;padding:14px 14px 40px}
-h1{margin:6px 0 2px;font-size:clamp(30px,8vw,48px);text-align:center;letter-spacing:.5px}
+background-image:radial-gradient(circle at 10% 10%,#ffc83d33 0 80px,transparent 81px),radial-gradient(circle at 92% 30%,#ff6fa533 0 110px,transparent 111px),radial-gradient(circle at 20% 95%,#4cc3f533 0 120px,transparent 121px),linear-gradient(var(--s1),var(--s2) 50%,var(--s3));background-attachment:fixed}
+.wrap{max-width:760px;margin:0 auto;padding:14px 14px 90px;position:relative;z-index:1}
+h1{margin:0 0 2px;font-size:clamp(34px,10vw,56px);text-align:center;letter-spacing:1px;-webkit-text-stroke:6px var(--shadow);paint-order:stroke fill;text-shadow:0 5px 0 var(--shadow)}
 h1 span:nth-child(1){color:var(--pink)}h1 span:nth-child(2){color:var(--sky)}h1 span:nth-child(3){color:var(--mint)}h1 span:nth-child(4){color:var(--grape)}
 .sub{text-align:center;margin:0 0 14px;opacity:.8}
 .tabs{display:flex;gap:10px;justify-content:center;margin-bottom:16px}
@@ -26,13 +26,13 @@ button:focus-visible{outline:4px solid var(--grape);outline-offset:2px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:12px}
 .tile{aspect-ratio:1;border-radius:46% 54% 50% 50%/55% 45% 55% 45%;border:3px solid var(--shadow);font-size:30px;box-shadow:0 5px 0 var(--shadow);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;transition:transform .12s}
 .tile small{font-size:22px;margin-top:2px}
-.tile:active{transform:translateY(4px);box-shadow:0 1px 0 var(--shadow)}
+.tile{animation:in .4s backwards;animation-delay:var(--d,0ms);background-image:linear-gradient(160deg,#fff9 0,#fff0 50%,#0001 100%);text-shadow:0 2px 0 #fff9}.tile:hover{transform:rotate(-4deg) scale(1.06)}@keyframes in{from{transform:scale(0)}}.tile:active{transform:translateY(4px);box-shadow:0 1px 0 var(--shadow)}
 .big{position:fixed;inset:0;background:#2b2250cc;display:flex;align-items:center;justify-content:center;padding:16px;z-index:5}
 .big[hidden]{display:none}
 .panel{background:var(--card);border:4px solid var(--shadow);border-radius:36px;padding:22px;width:min(420px,100%);text-align:center;box-shadow:0 8px 0 var(--shadow);animation:pop .25s}
 @keyframes pop{from{transform:scale(.7)}to{transform:scale(1)}}
-.bigl{font-size:clamp(90px,28vw,150px);line-height:1;margin:0;color:var(--grape)}
-.emoji{font-size:84px;line-height:1.1;display:inline-block}
+.bigl{font-size:clamp(90px,28vw,150px);line-height:1;margin:0;background:linear-gradient(90deg,var(--pink),var(--sun),var(--mint),var(--sky));-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-stroke:5px var(--shadow);paint-order:stroke fill}
+.emoji{width:132px;height:132px;border-radius:50%;background:radial-gradient(circle,#fff 30%,#ffe08a 100%);border:4px solid var(--shadow);display:inline-flex;align-items:center;justify-content:center;font-size:76px;line-height:1}
 .emoji.bounce{animation:bn .6s}
 @keyframes bn{30%{transform:translateY(-22px) rotate(-8deg)}60%{transform:translateY(0) rotate(6deg)}}
 .word{font-size:34px;margin:4px 0 14px}
@@ -58,13 +58,14 @@ button:focus-visible{outline:4px solid var(--grape);outline-offset:2px}
 .scale{display:inline-block;text-align:left;font-size:16px;opacity:.85;margin-bottom:14px}
 .conf{position:fixed;top:-20px;font-size:28px;pointer-events:none;animation:fall 2.2s linear forwards;z-index:9}
 @keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.scene{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}.sun{position:absolute;top:-40px;right:-30px;width:150px;height:150px;border-radius:50%;background:#ffd84d;box-shadow:0 0 0 18px #ffd84d55,0 0 0 40px #ffd84d33}.cl{position:absolute;width:120px;height:44px;background:#fff;border-radius:50px;opacity:.85;animation:dr 50s linear infinite}.cl::before{content:"";position:absolute;left:22px;top:-24px;width:58px;height:58px;background:#fff;border-radius:50%}.c1{top:12%}.c2{top:30%;animation-duration:70s;animation-delay:-30s;transform:scale(.7)}.c3{top:52%;animation-duration:90s;animation-delay:-60s;transform:scale(.5)}@keyframes dr{from{left:-160px}to{left:105%}}.hills{position:absolute;left:0;bottom:0;width:100%;height:16vh}.mas{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:12px}.bub{background:var(--card);border:3px solid var(--shadow);border-radius:20px;padding:8px 14px;max-width:230px;font-size:17px;position:relative}.bub::before{content:"";position:absolute;left:-11px;top:50%;margin-top:-8px;border:8px solid transparent;border-right:10px solid var(--shadow);border-left:0}#owl{animation:bob 3s ease-in-out infinite}@keyframes bob{50%{transform:translateY(-6px)}}#owl.jump{animation:jp .5s}@keyframes jp{40%{transform:translateY(-26px) rotate(-8deg)}}.pu{transform-box:fill-box;transform-origin:center;animation:bl 4s infinite}@keyframes bl{94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}.sp{position:fixed;z-index:9;pointer-events:none;font-size:24px;animation:spk .7s forwards}@keyframes spk{to{transform:translate(var(--x),var(--y)) scale(.3);opacity:0}}@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
+<div class="scene" aria-hidden="true"><div class="sun"></div><i class="cl c1"></i><i class="cl c2"></i><i class="cl c3"></i><svg class="hills" viewBox="0 0 800 160" preserveAspectRatio="none"><path d="M0 90Q150 20 300 80T600 70T800 60V160H0z" fill="#8ff0c8"/><path d="M0 120Q200 60 400 110T800 100V160H0z" fill="#3ed6a0"/></svg></div>
 <div class="wrap">
   <h1><span>Huruf</span> <span>Ce</span><span>ri</span><span>a</span></h1>
-  <p class="sub">Tekan, dengar dan padankan huruf!</p>
+  <div class="mas"><svg id="owl" viewBox="0 0 100 100" width="92" height="92" aria-hidden="true"><path d="M22 58q-12 10-4 26q8-4 10-14z" fill="#8b6cf0" stroke="#2b2250" stroke-width="3"/><path d="M78 58q12 10 4 26q-8-4-10-14z" fill="#8b6cf0" stroke="#2b2250" stroke-width="3"/><ellipse cx="50" cy="62" rx="30" ry="31" fill="#a77bff" stroke="#2b2250" stroke-width="4"/><ellipse cx="50" cy="72" rx="17" ry="19" fill="#ffe9a8"/><circle cx="38" cy="50" r="13" fill="#fff" stroke="#2b2250" stroke-width="3"/><circle cx="62" cy="50" r="13" fill="#fff" stroke="#2b2250" stroke-width="3"/><circle class="pu" cx="40" cy="51" r="6" fill="#2b2250"/><circle class="pu" cx="60" cy="51" r="6" fill="#2b2250"/><path d="M45 60l5 9l5-9z" fill="#ffc83d" stroke="#2b2250" stroke-width="2.5" stroke-linejoin="round"/><path d="M20 34l30-15l30 15l-30 12z" fill="#2b2250"/><path d="M78 35v14" stroke="#ffc83d" stroke-width="3"/></svg><div class="bub" id="bub">Tekan huruf untuk dengar!</div></div>
   <div class="tabs" role="tablist">
     <button class="tab" role="tab" id="t1" aria-selected="true">Belajar</button>
     <button class="tab" role="tab" id="t2" aria-selected="false">Padankan</button>
@@ -83,8 +84,10 @@ try{pickVoice();speechSynthesis.onvoiceschanged=pickVoice}catch(e){}
 function say(t,rate){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang=voice?voice.lang:"ms-MY";if(voice)u.voice=voice;u.rate=rate||.8;u.pitch=1.2;speechSynthesis.speak(u)}catch(e){}}
 let ac;
 function tone(f,d,type,t0){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();const o=ac.createOscillator(),g=ac.createGain();o.type=type||"sine";o.frequency.value=f;const s=ac.currentTime+(t0||0);g.gain.setValueAtTime(.2,s);g.gain.exponentialRampToValueAtTime(.001,s+d);o.connect(g);g.connect(ac.destination);o.start(s);o.stop(s+d)}catch(e){}}
-const good=()=>{tone(660,.15,"triangle");tone(880,.2,"triangle",.12)};
-const bad=()=>tone(180,.3,"sawtooth");
+const good=()=>{owl("Bagus! 🎉");tone(660,.15,"triangle");tone(880,.2,"triangle",.12)};
+const bad=()=>{owl("Cuba lagi! 💪");tone(180,.3,"sawtooth")};
+function owl(t){const b=$("#bub"),o=$("#owl");b.textContent=t;o.classList.remove("jump");void o.offsetWidth;o.classList.add("jump")}
+function burst(el){const r=el.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;for(let i=0;i<8;i++){const s=document.createElement("div");s.className="sp";s.textContent="⭐";const a=i*Math.PI/4;s.style.left=cx+"px";s.style.top=cy+"px";s.style.setProperty("--x",Math.cos(a)*70+"px");s.style.setProperty("--y",Math.sin(a)*70+"px");document.body.appendChild(s);setTimeout(()=>s.remove(),700)}}
 const win=()=>[523,659,784,1047].forEach((f,i)=>tone(f,.25,"triangle",i*.14));
 function confetti(){const e=["⭐","🎉","🌟","🎈","🍎"];for(let i=0;i<24;i++){const c=document.createElement("div");c.className="conf";c.textContent=e[i%5];c.style.left=Math.random()*100+"vw";c.style.animationDelay=Math.random()*.8+"s";document.body.appendChild(c);setTimeout(()=>c.remove(),3200)}}
 
@@ -92,7 +95,7 @@ function tabs(n){$("#t1").setAttribute("aria-selected",n==1);$("#t2").setAttribu
 $("#t1").onclick=()=>{tabs(1);learn()};$("#t2").onclick=()=>{tabs(2);startGame()};
 
 function learn(){
-  main.innerHTML='<div class="grid">'+W.map((w,i)=>`<button class="tile" data-i="${i}" style="background:${COL[i%6]};color:#2b2250" aria-label="Huruf ${w[0]}">${w[0]}<small>${w[2]}</small></button>`).join("")+"</div>";
+  main.innerHTML='<div class="grid">'+W.map((w,i)=>`<button class="tile" data-i="${i}" style="background-color:${COL[i%6]};color:#2b2250;--d:${i*25}ms" aria-label="Huruf ${w[0]}">${w[0]}<small>${w[2]}</small></button>`).join("")+"</div>";
   main.querySelectorAll(".tile").forEach(b=>b.onclick=()=>openCard(+b.dataset.i));
 }
 function openCard(i){
@@ -103,7 +106,7 @@ function openCard(i){
   const play=()=>{say(`${NAMES[L]}. ${L==="X"?"Xilofon":wd}`);const e=$("#em");e.classList.remove("bounce");void e.offsetWidth;e.classList.add("bounce")};
   $("#hear").onclick=play;$("#close").onclick=()=>{big.hidden=true;speechSynthesis.cancel()};
   $("#prev").onclick=()=>openCard((i+25)%26);$("#next").onclick=()=>openCard((i+1)%26);
-  good();play();
+  tone(660,.15,"triangle");play();
 }
 
 let G;
@@ -127,7 +130,7 @@ function round(){
     if(!G.sel){n.classList.add("bad");setTimeout(()=>n.classList.remove("bad"),400);return}
     const k=G.sel.dataset.i;
     if(k===n.dataset.i){
-      good();G.sel.classList.remove("sel");G.sel.classList.add("ok");n.classList.add("ok");
+      good();burst(n);G.sel.classList.remove("sel");G.sel.classList.add("ok");n.classList.add("ok");
       if(!G.fails[k])G.score++;G.sel=null;G.left--;
       $(".bar .pill:last-child").textContent="⭐ "+G.score+"/26";
       say(W[k][0].toLowerCase());
